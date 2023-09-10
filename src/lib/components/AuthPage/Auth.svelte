@@ -6,6 +6,7 @@
 	import AuthHero from './AuthHero.svelte';
 	import InputFancy from '../InputFancy.svelte';
 
+	import { PUBLIC_PRODUCTION_DOMAIN, PUBLIC_TESTING_DOMAIN } from '$env/static/public';
 	let loading = false;
 
 	let email = '';
@@ -13,14 +14,19 @@
 	async function handleMagicLinkLogin() {
 		loading = true;
 		try {
-			const { error } = await supabase.auth.signInWithOtp({ email });
-			if (error) {
-				console.error(error);
-				throw error;
-			}
+			const { error } = await supabase.auth.signInWithOtp({
+				email,
+				options: {
+					emailRedirectTo:
+						process.env.NODE_ENV === 'production' ? PUBLIC_PRODUCTION_DOMAIN : PUBLIC_TESTING_DOMAIN
+				}
+			});
+			if (error) throw error;
+
 			alert(`please check your email inbox at ${email}`);
-		} catch (error) {
+		} catch (/** @type {any} error*/ error) {
 			console.error(error);
+			alert(`error : ${error.message}`);
 		} finally {
 			loading = false;
 		}
@@ -30,13 +36,14 @@
 		loading = true;
 		try {
 			const { error } = await supabase.auth.signInWithOAuth({
-				provider: 'google'
+				provider: 'google',
+				options: {
+					redirectTo:
+						process.env.NODE_ENV === 'production' ? PUBLIC_PRODUCTION_DOMAIN : PUBLIC_TESTING_DOMAIN
+				}
 			});
 
-			if (error) {
-				throw error;
-			}
-			console.log('logging in with goodle');
+			if (error) throw error;
 		} catch (/** @type {any} error */ error) {
 			console.error(error);
 			alert(`this is the error ${error.message}`);
