@@ -6,7 +6,8 @@
 	import AuthHero from './AuthHero.svelte';
 	import InputFancy from '../InputFancy.svelte';
 
-	import { PUBLIC_PRODUCTION_DOMAIN, PUBLIC_TESTING_DOMAIN } from '$env/static/public';
+	let PUBLIC_PRODUCTION_DOMAIN = 'https://kandoro-board.vercel.app';
+	let PUBLIC_TESTING_DOMAIN = 'http://localhost:5173';
 	let loading = false;
 
 	let email = '';
