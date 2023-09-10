@@ -51,19 +51,23 @@
 <section>
 	{#if loading}
 		<LargeSkeleton />
-	{:else}
+	{:else if !$userStore}
 		<nav class="flex items-center justify-between w-full gap-4 px-4 py-5 md:p-6">
 			<ToggleLightDarkMode />
 			{#if $userStore}
 				<Button variant="default" on:click={handleSignOut}><LogOut size={22} /></Button>
 			{/if}
 		</nav>
-		{#if $userStore}
-			<CardTransition>
-				<slot />
-			</CardTransition>
-		{:else}
-			<Auth />
-		{/if}
+		<Auth />
+	{:else if $userStore}
+		<nav class="flex items-center justify-between w-full gap-4 px-4 py-5 md:p-6">
+			<ToggleLightDarkMode />
+			{#if $userStore}
+				<Button variant="default" on:click={handleSignOut}><LogOut size={22} /></Button>
+			{/if}
+		</nav>
+		<CardTransition>
+			<slot />
+		</CardTransition>
 	{/if}
 </section>
