@@ -179,3 +179,23 @@ export async function updateRowNumbersForColumn(syncedColumn) {
 		console.error(error);
 	}
 }
+
+/**
+ * TODO: make an updateDescriptionById function
+ * @function updateDescriptionById
+ * @param {number} id
+ * @param {string} description
+ * @returns {Promise<void>}
+ */
+
+export async function updateDescriptionById(id, description) {
+	const { data, error } = await supabase
+		.from('todos')
+		.update({ description: description })
+		.match({ id: id })
+		.select();
+
+	if (error) throw error;
+
+	await loadTodos();
+}
