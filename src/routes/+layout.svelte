@@ -6,6 +6,7 @@
 	import CardTransition from '$lib/components/animation/CardTransition.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
+	import { onMount } from 'svelte';
 	import '../app.css';
 	import Auth from '../lib/components/AuthPage/Auth.svelte';
 	import { userStore } from '../lib/stores/authStore';
@@ -20,6 +21,12 @@
 		const { error } = await supabase.auth.signOut();
 		userStore.set(null);
 	}
+
+	let windowAvailable = false;
+
+	onMount(() => {
+		windowAvailable = typeof window !== 'undefined';
+	});
 
 	async function loadUser() {
 		try {
@@ -48,26 +55,22 @@
 	loadUser();
 </script>
 
-<section>
-	{#if loading}
-		<LargeSkeleton />
-	{:else if !$userStore}
+{#if windowAvailable}
+	<section class="bg-background">
 		<nav class="flex items-center justify-between w-full gap-4 px-4 py-5 md:p-6">
 			<ToggleLightDarkMode />
 			{#if $userStore}
 				<Button variant="default" on:click={handleSignOut}><LogOut size={22} /></Button>
 			{/if}
 		</nav>
-		<Auth />
-	{:else if $userStore}
-		<nav class="flex items-center justify-between w-full gap-4 px-4 py-5 md:p-6">
-			<ToggleLightDarkMode />
-			{#if $userStore}
-				<Button variant="default" on:click={handleSignOut}><LogOut size={22} /></Button>
-			{/if}
-		</nav>
-		<CardTransition>
-			<slot />
-		</CardTransition>
-	{/if}
-</section>
+		{#if loading}
+			<LargeSkeleton />
+		{:else if !$userStore}
+			<Auth />
+		{:else if $userStore}
+			<CardTransition>
+				<slot />
+			</CardTransition>
+		{/if}
+	</section>
+{/if}
