@@ -56,7 +56,7 @@
 </script>
 
 {#if windowAvailable}
-	<section class="bg-background">
+	<section class="min-h-screen bg-background">
 		<nav class="flex items-center justify-between w-full gap-4 px-4 py-5 md:p-6">
 			<ToggleLightDarkMode />
 			{#if $userStore}
