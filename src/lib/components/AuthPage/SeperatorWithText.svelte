@@ -4,15 +4,12 @@
 	 */
 
 	export let text;
-	/**
-	 * @type {string} backgroundColor
-	 */
-	export let backgroundColor = '';
 </script>
 
-<div id="seperator" class="relative flex mb-5 font-light uppercase mt-28">
-	<div class="absolute inset-0 flex items-center">
-		<span class="w-[80%] border-t border-gray-600 block mx-auto" />
-	</div>
-	<h3 class="relative block px-4 mx-auto bg-background {backgroundColor}">{text}</h3>
-</div>
+<h3
+	class="font-light uppercase tracking-tighter
+	 before:h-[1px] before:bg-muted-foreground before:flex-1
+	 after:h-[1px] after:bg-muted-foreground after:flex-1 before:content-[''] after:content-[''] flex items-center px-10 gap-4"
+>
+	{text}
+</h3>

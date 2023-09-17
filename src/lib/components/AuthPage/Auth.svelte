@@ -86,7 +86,9 @@
 		</button>
 	</form>
 
-	<SeperatorWithText text="or continue with" />
+	<div class="py-10">
+		<SeperatorWithText text="or continue with" />
+	</div>
 
 	<button
 		type="button"
