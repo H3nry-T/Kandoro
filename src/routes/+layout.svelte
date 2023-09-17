@@ -56,21 +56,25 @@
 </script>
 
 {#if windowAvailable}
-	<section class="min-h-screen bg-background">
+	<section
+		class="relative min-h-screen bg-background dark:bg-gradient-to-t dark:from-blue-950 dark:to-black"
+	>
 		<nav class="flex items-center justify-between w-full gap-4 px-4 py-5 md:p-6">
 			<ToggleLightDarkMode />
 			{#if $userStore}
 				<Button variant="default" on:click={handleSignOut}><LogOut size={22} /></Button>
 			{/if}
 		</nav>
-		{#if loading}
-			<LargeSkeleton />
-		{:else if !$userStore}
-			<Auth />
-		{:else if $userStore}
-			<CardTransition>
-				<slot />
-			</CardTransition>
-		{/if}
+		<section class="relaive">
+			{#if loading}
+				<LargeSkeleton />
+			{:else if !$userStore}
+				<Auth />
+			{:else if $userStore}
+				<CardTransition>
+					<slot />
+				</CardTransition>
+			{/if}
+		</section>
 	</section>
 {/if}
