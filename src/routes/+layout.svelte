@@ -65,7 +65,7 @@
 				<Button variant="default" on:click={handleSignOut}><LogOut size={22} /></Button>
 			{/if}
 		</nav>
-		<section class="relaive">
+		<section class="relative">
 			{#if loading}
 				<LargeSkeleton />
 			{:else if !$userStore}
