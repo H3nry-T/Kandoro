@@ -1,6 +1,10 @@
-<p class="pb-10 mt-16 leading-5 text-center text-gray-500">
+<p class="pb-10 mt-16 leading-5 text-center text-muted-foreground">
 	By clicking continue,<br /> you agree to our
-	<a href="/" class="text-gray-900 underline hover:text-gray-500">Terms of Service</a>
+	<a href="/" class="underline text-muted-foreground/60 hover:text-muted-foreground/50"
+		>Terms of Service</a
+	>
 	and
-	<a href="/" class="text-gray-900 underline hover:text-gray-500">Privacy Policy.</a>
+	<a href="/" class="underline text-muted-foreground/60 hover:text-muted-foreground/50"
+		>Privacy Policy.</a
+	>
 </p>
