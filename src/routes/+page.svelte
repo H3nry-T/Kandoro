@@ -28,12 +28,14 @@
 
 <section class="min-w-full min-h-screen px-5 md:px-2 lg:px-20">
 	<div
-		class="absolute opacity-50 pointer-events-none w-64 h-64 l-0 t-0 filter blur-3xl bg-gradient-to-tr from-blue-500 via-purple-500 to-orange-500 z-[-1] animate-slowBlob"
+		class="absolute w-64 h-64 opacity-50 pointer-events-none l-0 t-0 filter blur-3xl bg-gradient-to-tr from-blue-500 via-purple-500 to-orange-500 animate-slowBlob"
 	/>
-	<h1 class="mb-10 text-4xl font-semibold tracking-tight first-letter:capitalize">svelte-kanban</h1>
+	<h1 class="relative mb-10 text-4xl font-semibold tracking-tight first-letter:capitalize">
+		svelte-kanban
+	</h1>
 
 	<form
-		class="flex items-center justify-center w-full max-w-sm gap-4 mb-5 rounded-lg text-card-foreground"
+		class="relative flex items-center justify-center w-full max-w-sm gap-4 mb-5 rounded-lg text-card-foreground"
 		on:submit|preventDefault={async () => {
 			if (form.title.length > 0 && $userStore !== null) {
 				await addTodos(form, $userStore?.id);
@@ -56,7 +58,7 @@
 		</fieldset>
 	</form>
 
-	<section class="pb-10">
+	<section class="relative pb-10">
 		<section class="grid items-start grid-cols-1 gap-4 mt-10 md:gap-1 md:grid-cols-3 lg:gap-4">
 			<KanbanColumn column={column1} columnNumber={1} />
 			<KanbanColumn column={column2} columnNumber={2} />
