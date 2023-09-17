@@ -2,6 +2,7 @@
 	import { Badge } from '$lib/components/ui/badge/index';
 	import { Button } from '$lib/components/ui/button/index';
 	import * as Card from '$lib/components/ui/card/index';
+	import * as Tooltip from '$lib/components/ui/tooltip';
 	import { Checkbox } from '$lib/components/ui/checkbox/index';
 	import {
 		animateAddCard,
@@ -35,42 +36,64 @@
 	"
 >
 	<section class="flex">
-		<header class="w-full pt-1 pl-2 pr-1">
+		<header class="w-full pt-1 pl-1 pr-1">
 			<div class="flex items-center justify-between">
 				<h4
-					class="text-base md:text-sm font-semibold md:w-[14vw] lg:w-[17vw] lg:text-lg transition-colors duration-1000 ease-linear truncate first-letter:capitalize {todo.is_done
+					class="pl-1 text-base md:text-sm font-semibold md:w-[14vw] lg:w-[17vw] lg:text-lg transition-colors duration-1000 ease-linear truncate first-letter:capitalize {todo.is_done
 						? 'line-through text-muted-foreground'
 						: ''}"
 				>
 					{todo.title}
 				</h4>
 				<section class="flex items-center gap-1">
-					<Checkbox
-						checked={todo.is_done}
-						onCheckedChange={() => {
-							updateToggleTodos(todo.id, todo.is_done);
-							playAnimation();
-						}}
-						class="grid self-center w-5 h-5 border place-items-center"
-					/>
-					<Button
-						class="p-0 h-[25px] w-[25px] leading-none border bg-card group hover:bg-gray-400/10"
-						size="icon"
-						variant="secondary"
-						><FileEdit
-							size={20}
-							class="transition-all duration-300 ease-in-out group-hover:text-gray-400"
-						/></Button
-					>
-					<Button
-						variant="destructive"
-						size="icon"
-						class="p-0 border group h-[25px] w-[25px] bg-card hover:bg-red-100"
-						on:click={() => deleteTodos(todo.id)}
-						><X
-							class="transition-all duration-300 ease-in-out text-primary group-hover:text-red-900"
-						/>
-					</Button>
+					<Tooltip.Root>
+						<Tooltip.Trigger>
+							<Checkbox
+								checked={todo.is_done}
+								onCheckedChange={() => {
+									updateToggleTodos(todo.id, todo.is_done);
+									playAnimation();
+								}}
+								class="grid self-center w-5 h-5 border place-items-center"
+							/>
+						</Tooltip.Trigger>
+						<Tooltip.Content>
+							<p class="first-letter:capitalize">mark is done</p>
+						</Tooltip.Content>
+					</Tooltip.Root>
+					<Tooltip.Root>
+						<Tooltip.Trigger
+							><Button
+								class="p-0 h-[25px] w-[25px] leading-none border bg-card group hover:bg-gray-400/10"
+								size="icon"
+								variant="secondary"
+								><FileEdit
+									size={20}
+									class="transition-all duration-300 ease-in-out group-hover:text-gray-400"
+								/></Button
+							></Tooltip.Trigger
+						>
+						<Tooltip.Content>
+							<p class="first-letter:capitalize">edit todo</p>
+						</Tooltip.Content>
+					</Tooltip.Root>
+
+					<Tooltip.Root>
+						<Tooltip.Trigger
+							><Button
+								variant="destructive"
+								size="icon"
+								class="p-0 border group h-[25px] w-[25px] bg-card hover:bg-red-100"
+								on:click={() => deleteTodos(todo.id)}
+								><X
+									class="transition-all duration-300 ease-in-out text-primary group-hover:text-red-900"
+								/>
+							</Button></Tooltip.Trigger
+						>
+						<Tooltip.Content>
+							<p>Delete todo</p>
+						</Tooltip.Content>
+					</Tooltip.Root>
 				</section>
 			</div>
 			{#if todo.description.length > 0}
