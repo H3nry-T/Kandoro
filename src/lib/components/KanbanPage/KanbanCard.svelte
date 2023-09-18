@@ -47,14 +47,14 @@
 				</h4>
 				<section class="flex items-center gap-1">
 					<Tooltip.Root>
-						<Tooltip.Trigger>
+						<Tooltip.Trigger class="grid place-items-center">
 							<Checkbox
 								checked={todo.is_done}
 								onCheckedChange={() => {
 									updateToggleTodos(todo.id, todo.is_done);
 									playAnimation();
 								}}
-								class="grid self-center w-5 h-5 border place-items-center"
+								class="grid self-center w-[22px] h-[22px] border place-items-center"
 							/>
 						</Tooltip.Trigger>
 						<Tooltip.Content>
@@ -62,7 +62,7 @@
 						</Tooltip.Content>
 					</Tooltip.Root>
 					<Tooltip.Root>
-						<Tooltip.Trigger
+						<Tooltip.Trigger class="grid place-items-center"
 							><Button
 								class="p-0 h-[25px] w-[25px] leading-none border bg-card group hover:bg-gray-400/10"
 								size="icon"
@@ -77,9 +77,8 @@
 							<p class="first-letter:capitalize">edit todo</p>
 						</Tooltip.Content>
 					</Tooltip.Root>
-
 					<Tooltip.Root>
-						<Tooltip.Trigger
+						<Tooltip.Trigger class="grid place-items-center"
 							><Button
 								variant="destructive"
 								size="icon"
