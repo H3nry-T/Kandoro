@@ -76,6 +76,8 @@
 								onOpenChange={(open) => {
 									if (open) {
 										hasBeenEdited = false;
+										updatedTitle = '';
+										updatedDescription = '';
 									}
 								}}
 							>
@@ -121,8 +123,6 @@
 											on:click={() => {
 												updateTodoFieldsById(todo.id, updatedTitle, updatedDescription);
 												hasBeenEdited = true;
-												updatedTitle = '';
-												updatedDescription = '';
 											}}
 										>
 											{#if !hasBeenEdited}
