@@ -208,7 +208,6 @@ export async function updateTodoFieldsById(id, title, description) {
 	}
 
 	try {
-		console.log(promises.length);
 		await Promise.all(promises);
 	} catch (error) {
 		if (error) throw error;
