@@ -13,7 +13,7 @@
 		animateFinalizeCard,
 		finalizingCard
 	} from '$lib/stores/cardAnimationStore';
-	import { deleteTodos, updateToggleTodos } from '$lib/stores/todosStore';
+	import { deleteTodos, updateTodoFieldsById, updateToggleTodos } from '$lib/stores/todosStore';
 	import { FileEdit, X } from 'lucide-svelte';
 	import Input from '../ui/input/input.svelte';
 
@@ -31,6 +31,10 @@
 			animateToggle = false;
 		}, duration);
 	}
+
+	let updatedTitle = '';
+	let updatedDescription = '';
+	let hasBeenEdited = false;
 </script>
 
 <Card.Root
@@ -68,7 +72,13 @@
 					</Tooltip.Root>
 					<Tooltip.Root>
 						<Tooltip.Trigger class="grid place-items-center">
-							<Dialog.Root>
+							<Dialog.Root
+								onOpenChange={(open) => {
+									if (open) {
+										hasBeenEdited = false;
+									}
+								}}
+							>
 								<Dialog.Trigger class="grid place-items-center"
 									><Button
 										class="p-0 h-[25px] w-[25px] leading-none border bg-card group hover:bg-gray-400/10"
@@ -84,13 +94,14 @@
 									<Dialog.Header>
 										<Dialog.Title>Edit the todo here:</Dialog.Title>
 									</Dialog.Header>
-									<form class="flex flex-col w-full gap-5">
+									<form class="flex flex-col w-full gap-5" on:submit|preventDefault>
 										<fieldset class="flex flex-col gap-3">
 											<Label for="title" class="first-letter:capitalize">title</Label>
 											<Input
 												class="placeholder:first-letter:capitalize"
 												placeholder={todo.title}
 												id="title"
+												bind:value={updatedTitle}
 											/>
 										</fieldset>
 										<fieldset class="flex flex-col gap-3">
@@ -101,9 +112,23 @@
 												cols={30}
 												rows={10}
 												placeholder={todo.description}
+												bind:value={updatedDescription}
 											/>
 										</fieldset>
-										<Button class="first-letter:capitalize" type="submit">save changes</Button>
+										<Button
+											class="first-letter:capitalize"
+											type="submit"
+											on:click={() => {
+												updateTodoFieldsById(todo.id, updatedTitle, updatedDescription);
+												hasBeenEdited = true;
+											}}
+										>
+											{#if !hasBeenEdited}
+												save changes
+											{:else}
+												✔️
+											{/if}
+										</Button>
 									</form>
 								</Dialog.Content>
 							</Dialog.Root>
@@ -131,7 +156,9 @@
 				</section>
 			</div>
 			{#if todo.description.length > 0}
-				<Card.Description class="truncate">{todo.description}</Card.Description>
+				<Card.Description class="pl-1 truncate first-letter:capitalize sm:max-w-[20vw]"
+					>{todo.description}</Card.Description
+				>
 			{/if}
 		</header>
 	</section>
