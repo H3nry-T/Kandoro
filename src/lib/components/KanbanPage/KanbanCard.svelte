@@ -1,8 +1,12 @@
 <script>
+	import * as Dialog from '$lib/components/ui/dialog';
+	import { Textarea } from '$lib/components/ui/textarea/index';
+
 	import { Badge } from '$lib/components/ui/badge/index';
 	import { Button } from '$lib/components/ui/button/index';
 	import * as Card from '$lib/components/ui/card/index';
 	import * as Tooltip from '$lib/components/ui/tooltip';
+	import { Label } from '$lib/components/ui/label/index';
 	import { Checkbox } from '$lib/components/ui/checkbox/index';
 	import {
 		animateAddCard,
@@ -11,6 +15,7 @@
 	} from '$lib/stores/cardAnimationStore';
 	import { deleteTodos, updateToggleTodos } from '$lib/stores/todosStore';
 	import { FileEdit, X } from 'lucide-svelte';
+	import Input from '../ui/input/input.svelte';
 
 	/**
 	 * @type {import('$lib/stores/todosStore').Todo} todo
@@ -54,7 +59,7 @@
 									updateToggleTodos(todo.id, todo.is_done);
 									playAnimation();
 								}}
-								class="grid self-center w-[22px] h-[22px] border place-items-center"
+								class="grid self-center w-[21px] h-[21px] border place-items-center"
 							/>
 						</Tooltip.Trigger>
 						<Tooltip.Content>
@@ -62,17 +67,47 @@
 						</Tooltip.Content>
 					</Tooltip.Root>
 					<Tooltip.Root>
-						<Tooltip.Trigger class="grid place-items-center"
-							><Button
-								class="p-0 h-[25px] w-[25px] leading-none border bg-card group hover:bg-gray-400/10"
-								size="icon"
-								variant="secondary"
-								><FileEdit
-									size={20}
-									class="transition-all duration-300 ease-in-out group-hover:text-gray-400"
-								/></Button
-							></Tooltip.Trigger
-						>
+						<Tooltip.Trigger class="grid place-items-center">
+							<Dialog.Root>
+								<Dialog.Trigger class="grid place-items-center"
+									><Button
+										class="p-0 h-[25px] w-[25px] leading-none border bg-card group hover:bg-gray-400/10"
+										size="icon"
+										variant="secondary"
+										><FileEdit
+											size={20}
+											class="transition-all duration-300 ease-in-out group-hover:text-gray-400"
+										/></Button
+									></Dialog.Trigger
+								>
+								<Dialog.Content class="flex flex-col gap-8">
+									<Dialog.Header>
+										<Dialog.Title>Edit the todo here:</Dialog.Title>
+									</Dialog.Header>
+									<form class="flex flex-col w-full gap-5">
+										<fieldset class="flex flex-col gap-3">
+											<Label for="title" class="first-letter:capitalize">title</Label>
+											<Input
+												class="placeholder:first-letter:capitalize"
+												placeholder={todo.title}
+												id="title"
+											/>
+										</fieldset>
+										<fieldset class="flex flex-col gap-3">
+											<Label for="title" class="first-letter:capitalize">add a description</Label>
+											<Textarea
+												name="description"
+												id="description"
+												cols={30}
+												rows={10}
+												placeholder={todo.description}
+											/>
+										</fieldset>
+										<Button class="first-letter:capitalize" type="submit">save changes</Button>
+									</form>
+								</Dialog.Content>
+							</Dialog.Root>
+						</Tooltip.Trigger>
 						<Tooltip.Content>
 							<p class="first-letter:capitalize">edit todo</p>
 						</Tooltip.Content>
