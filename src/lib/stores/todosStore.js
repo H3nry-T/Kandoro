@@ -181,21 +181,38 @@ export async function updateRowNumbersForColumn(syncedColumn) {
 }
 
 /**
- * TODO: make an updateDescriptionById function
- * @function updateDescriptionById
+ * TODO: make an updateTodoFieldsById function
+ * only update if the passed in title and description is relevant change.
+ * @function updateTodoFieldsById
  * @param {number} id
+ * @param {string} title
  * @param {string} description
  * @returns {Promise<void>}
  */
 
-export async function updateDescriptionById(id, description) {
-	const { data, error } = await supabase
-		.from('todos')
-		.update({ description: description })
-		.match({ id: id })
-		.select();
+export async function updateTodoFieldsById(id, title, description) {
+	const promises = [];
+	if (title.length > 0) {
+		const promiseTitleUpdate = supabase.from('todos').update({ title }).match({ id: id }).select();
+		promises.push(promiseTitleUpdate);
+	}
 
-	if (error) throw error;
+	if (description.length > 0) {
+		const promiseDescriptionUpdate = supabase
+			.from('todos')
+			.update({ description })
+			.match({ id: id })
+			.select();
+
+		promises.push(promiseDescriptionUpdate);
+	}
+
+	try {
+		console.log(promises.length);
+		await Promise.all(promises);
+	} catch (error) {
+		if (error) throw error;
+	}
 
 	await loadTodos();
 }
