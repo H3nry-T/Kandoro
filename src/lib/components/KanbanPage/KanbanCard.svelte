@@ -121,6 +121,8 @@
 											on:click={() => {
 												updateTodoFieldsById(todo.id, updatedTitle, updatedDescription);
 												hasBeenEdited = true;
+												updatedTitle = '';
+												updatedDescription = '';
 											}}
 										>
 											{#if !hasBeenEdited}
