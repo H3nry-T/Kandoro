@@ -26,7 +26,7 @@
 		.sort((a, b) => a.row_number - b.row_number);
 </script>
 
-<section class="min-w-full min-h-screen px-5 md:px-2 lg:px-20">
+<section class="min-h-screen px-5 md:px-2 lg:px-20">
 	<div
 		class="absolute w-64 h-64 opacity-50 pointer-events-none l-0 t-0 filter blur-3xl bg-gradient-to-tr from-blue-500 via-purple-500 to-orange-500 animate-slowBlob"
 	/>

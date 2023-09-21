@@ -2,7 +2,7 @@
 	import Skeleton from './ui/skeleton/skeleton.svelte';
 </script>
 
-<section class="flex flex-col items-center min-w-full min-h-screen gap-20 py-20 bg-background">
+<section class="flex flex-col items-center min-h-screen gap-20 py-20 bg-background">
 	<Skeleton class="w-[90%] h-[100px] rounded-lg" />
 
 	<section class="grid w-full max-w-md grid-cols-1 gap-4 md:grid-cols-3 md:max-w-7xl">

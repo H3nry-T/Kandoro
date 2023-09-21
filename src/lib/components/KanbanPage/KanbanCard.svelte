@@ -38,7 +38,7 @@
 </script>
 
 <Card.Root
-	class="min-w-fit  transition-all duration-300 ease-in-out 
+	class="transition-all duration-300 ease-in-out 
 	{animateToggle ? 'border-accent-foreground' : null}
 	{$animateAddCard && isLast ? 'border-accent-foreground' : null}
 	{$animateFinalizeCard && todo.id === $finalizingCard ? 'border-accent-foreground' : null}
@@ -48,7 +48,7 @@
 		<header class="w-full pt-1 pl-1 pr-1">
 			<div class="flex items-center justify-between">
 				<h4
-					class="pl-1 text-base md:text-sm font-semibold md:w-[14vw] lg:w-[17vw] lg:text-lg transition-colors duration-1000 ease-linear truncate first-letter:capitalize {todo.is_done
+					class="pl-1 text-sm mr-2 sm:mr-1 sm:text-base w-[70vw] md:text-sm font-semibold md:w-[14vw] lg:w-[17vw] lg:text-lg transition-colors duration-1000 ease-linear truncate first-letter:capitalize {todo.is_done
 						? 'line-through text-muted-foreground'
 						: ''}"
 				>
@@ -158,7 +158,7 @@
 				</section>
 			</div>
 			{#if todo.description.length > 0}
-				<Card.Description class="pl-1 truncate first-letter:capitalize sm:max-w-[20vw]"
+				<Card.Description class="pl-1 truncate first-letter:capitalize w-[50vw] md:w-[20vw]"
 					>{todo.description}</Card.Description
 				>
 			{/if}

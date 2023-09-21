@@ -80,7 +80,7 @@
 </script>
 
 <section class="md:min-h-screen">
-	<Card.Root class="w-full p-5 pt-4 min-w-fit">
+	<Card.Root class="w-full p-5 pt-4">
 		<h2
 			class="mb-4 text-xl font-semibold tracking-tight md:text-2xl first-letter:capitalize text-secondary-foreground"
 		>
