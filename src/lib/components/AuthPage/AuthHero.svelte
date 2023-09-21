@@ -1,4 +1,4 @@
-<section class="relative flex flex-col items-center w-full pt-2">
+<section class="relative flex flex-col items-center pt-2">
 	<div
 		class="absolute pointer-events-none bg-blue-500 left-[40%] top-[10%] z-[1] w-64 h-64 rounded-full mix-blend-multiply filter blur-xl animate-blob opacity-20 dark:opacity-100"
 		style="animation-delay: 1s;"
