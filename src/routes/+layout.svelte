@@ -57,7 +57,7 @@
 
 {#if windowAvailable}
 	<section
-		class="relative min-h-screen overflow-hidden bg-background dark:bg-gradient-to-t dark:from-blue-950 dark:to-black"
+		class="relative min-h-screen mx-auto overflow-hidden bg-background dark:bg-gradient-to-t dark:from-blue-950 dark:to-black max-w-[1920px]"
 	>
 		<nav class="flex items-center justify-between w-full gap-4 px-4 py-5 md:p-6">
 			<ToggleLightDarkMode />
