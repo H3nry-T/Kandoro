@@ -31,7 +31,7 @@
 		class="absolute w-64 h-64 opacity-50 pointer-events-none l-0 t-0 filter blur-3xl bg-gradient-to-tr from-blue-500 via-purple-500 to-orange-500 animate-slowBlob"
 	/>
 	<h1 class="relative mb-10 text-4xl font-semibold tracking-tight first-letter:capitalize">
-		svelte-kanban
+		Kandoro
 	</h1>
 
 	<form
