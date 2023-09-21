@@ -14,7 +14,7 @@
 		finalizingCard
 	} from '$lib/stores/cardAnimationStore';
 	import { deleteTodos, updateTodoFieldsById, updateToggleTodos } from '$lib/stores/todosStore';
-	import { FileEdit, X } from 'lucide-svelte';
+	import { CheckCircle, FileEdit, X } from 'lucide-svelte';
 	import Input from '../ui/input/input.svelte';
 
 	/**
@@ -99,12 +99,7 @@
 									<form class="flex flex-col w-full gap-5" on:submit|preventDefault>
 										<fieldset class="flex flex-col gap-3">
 											<Label for="title" class="first-letter:capitalize">title</Label>
-											<Input
-												class="placeholder:first-letter:capitalize"
-												placeholder={todo.title}
-												id="title"
-												bind:value={updatedTitle}
-											/>
+											<Input placeholder={todo.title} id="title" bind:value={updatedTitle} />
 										</fieldset>
 										<fieldset class="flex flex-col gap-3">
 											<Label for="title" class="first-letter:capitalize">add a description</Label>
@@ -118,7 +113,7 @@
 											/>
 										</fieldset>
 										<Button
-											class="first-letter:capitalize"
+											class="grid first-letter:capitalize place-items-center"
 											type="submit"
 											on:click={() => {
 												updateTodoFieldsById(todo.id, updatedTitle, updatedDescription);
@@ -128,7 +123,7 @@
 											{#if !hasBeenEdited}
 												save changes
 											{:else}
-												✔️
+												<CheckCircle />
 											{/if}
 										</Button>
 									</form>
