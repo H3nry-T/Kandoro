@@ -1,7 +1,7 @@
 <script>
 	import { supabase } from '../../supabase';
 	import GoogleIcon from '$lib/components/AuthPage/GoogleIcon.svelte';
-	import SeperatorWithText from './SeperatorWithText.svelte';
+	import SeperatorWithText from './SeparatorWithText.svelte';
 	import TermsAndConditions from './TermsAndConditions.svelte';
 	import AuthHero from './AuthHero.svelte';
 	import InputFancy from '../InputFancy.svelte';
