@@ -30,39 +30,41 @@
 	<div
 		class="absolute w-64 h-64 opacity-50 pointer-events-none l-0 t-0 filter blur-3xl bg-gradient-to-tr from-blue-500 via-purple-500 to-orange-500 animate-slowBlob"
 	/>
-	<h1 class="relative mb-10 text-4xl font-semibold tracking-tight first-letter:capitalize">
-		Kandoro
-	</h1>
 
-	<form
-		class="relative flex items-center justify-center w-full max-w-sm gap-4 mb-5 rounded-lg text-card-foreground"
-		on:submit|preventDefault={async () => {
-			if (form.title.length > 0 && $userStore !== null) {
-				await addTodos(form, $userStore?.id);
-				playAddCardAnimation(500);
-				form.title = '';
-			}
-		}}
-	>
-		<fieldset class="flex items-center w-full gap-4">
-			<Input
-				class="w-full max-w-2xl py-0 bg-card"
-				bind:value={form.title}
-				type="text"
-				name="title"
-				id="title"
-				required
-				placeholder="Add todo"
-			/>
-			<Button class="py-0 border border-gray-600" size={'icon'} type="submit"><Plus /></Button>
-		</fieldset>
-	</form>
+	<section class="max-w-[1920px] mx-auto">
+		<h1 class="relative mb-10 text-4xl font-semibold tracking-tight first-letter:capitalize">
+			Kandoro
+		</h1>
+		<form
+			class="relative flex items-center justify-center w-full max-w-sm gap-4 mb-5 bg-blue-500 rounded-lg text-card-foreground"
+			on:submit|preventDefault={async () => {
+				if (form.title.length > 0 && $userStore !== null) {
+					await addTodos(form, $userStore?.id);
+					playAddCardAnimation(500);
+					form.title = '';
+				}
+			}}
+		>
+			<fieldset class="flex items-center w-full gap-4">
+				<Input
+					class="w-full max-w-2xl py-0 bg-card"
+					bind:value={form.title}
+					type="text"
+					name="title"
+					id="title"
+					required
+					placeholder="Add todo"
+				/>
+				<Button class="py-0 border border-gray-600" size={'icon'} type="submit"><Plus /></Button>
+			</fieldset>
+		</form>
 
-	<section class="relative pb-10">
-		<section class="grid items-start grid-cols-1 gap-4 mt-10 md:gap-1 md:grid-cols-3 lg:gap-4">
-			<KanbanColumn column={column1} columnNumber={1} />
-			<KanbanColumn column={column2} columnNumber={2} />
-			<KanbanColumn column={column3} columnNumber={3} />
+		<section class="relative pb-10">
+			<section class="grid items-start grid-cols-1 gap-4 mt-10 md:gap-1 md:grid-cols-3 lg:gap-4">
+				<KanbanColumn column={column1} columnNumber={1} />
+				<KanbanColumn column={column2} columnNumber={2} />
+				<KanbanColumn column={column3} columnNumber={3} />
+			</section>
 		</section>
 	</section>
 </section>
