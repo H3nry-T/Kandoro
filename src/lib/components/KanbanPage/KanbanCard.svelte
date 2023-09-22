@@ -32,8 +32,8 @@
 		}, duration);
 	}
 
-	let updatedTitle = '';
-	let updatedDescription = '';
+	let updatedTitle = todo.title || '';
+	let updatedDescription = todo.description || '';
 	let hasBeenEdited = false;
 </script>
 
@@ -76,8 +76,8 @@
 								onOpenChange={(open) => {
 									if (open) {
 										hasBeenEdited = false;
-										updatedTitle = '';
-										updatedDescription = '';
+										updatedTitle = todo.title;
+										updatedDescription = todo.description;
 									}
 								}}
 							>
