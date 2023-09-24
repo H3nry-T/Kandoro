@@ -5,8 +5,9 @@
 	import { userStore } from '$lib/stores/authStore';
 	import { playAddCardAnimation } from '$lib/stores/cardAnimationStore';
 	import { addTodos, todos } from '$lib/stores/todosStore';
-	import { Plus, RotateCcw } from 'lucide-svelte';
+	import { Pause, Play, Plus, RotateCcw } from 'lucide-svelte';
 	import { onMount } from 'svelte';
+	import { dndzone } from 'svelte-dnd-action';
 
 	let form = {
 		title: ''
@@ -16,6 +17,7 @@
 	$: seconds = minutes * 60;
 	$: showSeconds = seconds % 60;
 	$: showMinutes = Math.floor((seconds * 1) / 60);
+	let isPlaying = false;
 
 	$: column1 = $todos
 		.filter((t) => t.column_number === 1)
@@ -27,13 +29,13 @@
 		.filter((t) => t.column_number === 3)
 		.sort((a, b) => a.row_number - b.row_number);
 
-	onMount(() => {
-		const countdown = setInterval(() => {
-			if (seconds > 0) {
-				seconds -= 1;
-			}
-		}, 1000);
+	/**
+	 * @type {NodeJS.Timeout} countdown
+	 */
 
+	let countdown;
+
+	onMount(() => {
 		return () => {
 			clearInterval(countdown);
 		};
@@ -74,7 +76,7 @@
 				</fieldset>
 			</form>
 			<div
-				class="flex items-center gap-4 text-3xl font-semibold leading-none tracking-tight md:text-4xl"
+				class="flex items-center gap-2 text-3xl font-semibold leading-none tracking-tight md:text-4xl"
 			>
 				<h2>
 					{showMinutes} : {#if 0 < showSeconds && showSeconds < 10}0{/if}{showSeconds}{#if seconds % 60 === 0}{0}{/if}
@@ -103,7 +105,24 @@
 					on:click={() => {
 						seconds = minutes * 60;
 					}}><RotateCcw size={20} /></Button
+				><Button
+					size="icon"
+					on:click={() => {
+						if (countdown) clearInterval(countdown);
+						isPlaying = !isPlaying;
+						countdown = setInterval(() => {
+							if (seconds > 0 && isPlaying) {
+								seconds -= 1;
+							}
+						}, 1000);
+					}}
 				>
+					{#if isPlaying}
+						<Pause />
+					{:else}
+						<Play size={20} />
+					{/if}
+				</Button>
 			</div>
 		</section>
 
