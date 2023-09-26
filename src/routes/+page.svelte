@@ -51,7 +51,7 @@
 		<h1 class="relative mb-10 text-4xl font-semibold tracking-tight first-letter:capitalize">
 			Kandoro
 		</h1>
-		<section class="flex justify-between">
+		<section class="flex flex-col justify-between gap-4 md:flex-row md:gap-0">
 			<form
 				class="relative flex items-center justify-center w-full max-w-sm gap-4 rounded-lg text-card-foreground"
 				on:submit|preventDefault={async () => {
@@ -76,7 +76,7 @@
 				</fieldset>
 			</form>
 			<div
-				class="flex items-center gap-2 text-3xl font-semibold leading-none tracking-tight md:text-4xl"
+				class="relative flex items-center gap-2 text-3xl font-semibold leading-none tracking-tight md:text-4xl"
 			>
 				<h2>
 					{showMinutes} : {#if 0 < showSeconds && showSeconds < 10}0{/if}{showSeconds}{#if seconds % 60 === 0}{0}{/if}
