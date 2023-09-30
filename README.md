@@ -8,6 +8,8 @@ This is a small app built with svelte, supabase, and svelte dnd. Incredibly easy
 
 ## Developing
 
+git clone <code>[repo]</code>;
+
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
 ```bash
