@@ -99,7 +99,14 @@
 									<form class="flex flex-col w-full gap-5" on:submit|preventDefault>
 										<fieldset class="flex flex-col gap-3">
 											<Label for="title" class="first-letter:capitalize">title</Label>
-											<Input placeholder={todo.title} id="title" bind:value={updatedTitle} />
+											<Input
+												placeholder={todo.title}
+												id="title"
+												bind:value={updatedTitle}
+												on:keydown={() => {
+													hasBeenEdited = false;
+												}}
+											/>
 										</fieldset>
 										<fieldset class="flex flex-col gap-3">
 											<Label for="title" class="first-letter:capitalize">add a description</Label>
@@ -110,10 +117,13 @@
 												rows={10}
 												placeholder={todo.description}
 												bind:value={updatedDescription}
+												on:keydown={() => {
+													hasBeenEdited = false;
+												}}
 											/>
 										</fieldset>
 										<Button
-											class="grid first-letter:capitalize place-items-center"
+											class="grid place-items-center"
 											type="submit"
 											on:click={() => {
 												updateTodoFieldsById(todo.id, updatedTitle, updatedDescription);
@@ -121,7 +131,7 @@
 											}}
 										>
 											{#if !hasBeenEdited}
-												save changes
+												<p class="first-letter:capitalize">save changes</p>
 											{:else}
 												<CheckCircle />
 											{/if}
