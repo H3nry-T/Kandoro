@@ -49,7 +49,10 @@
 
 	<section class="max-w-[1920px] mx-auto">
 		<h1 class="relative mb-10 text-4xl font-semibold tracking-tight first-letter:capitalize">
-			Kandoro
+			Kan<span
+				class="text-transparent bg-gradient-to-tr from-orange-400 via-blue-300 to-purple-400 bg-clip-text"
+				>doro</span
+			>
 		</h1>
 		<section class="flex flex-col justify-between gap-4 md:flex-row md:gap-0">
 			<form
