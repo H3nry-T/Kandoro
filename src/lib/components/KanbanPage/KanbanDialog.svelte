@@ -1,6 +1,6 @@
 <script>
 	import * as Dialog from '$lib/components/ui/dialog';
-	import { CheckCircle, FileEdit } from 'lucide-svelte';
+	import { CheckCircle, ChevronDown, FileEdit } from 'lucide-svelte';
 	import Button from '../ui/button/button.svelte';
 	import Label from '../ui/label/label.svelte';
 	import Input from '../ui/input/input.svelte';
@@ -84,9 +84,19 @@
 					}}
 				/>
 			</fieldset>
-			<fieldset>
+			<fieldset
+				class="relative p-[1px] overflow-hidden rounded-md focus-within:outline-double focus-within:outline-2 focus-within:outline-primary"
+			>
 				<select
-					class="w-full bg-primary-foreground text-primary"
+					class={`w-full px-2 py-1 text-sm border-2  appearance-none bg-card text-card-foreground hover:cursor-pointer ${
+						updatedPriority === 1
+							? 'border-green-900'
+							: updatedPriority === 2
+							? 'border-yellow-900'
+							: updatedPriority === 3
+							? 'border-red-900'
+							: 'border-primary'
+					}`}
 					name="priority"
 					bind:value={updatedPriority}
 					on:change={(e) => {
@@ -98,6 +108,10 @@
 					<option value={2}>Medium</option>
 					<option value={3}>High</option>
 				</select>
+				<span
+					class="absolute top-0 right-0 grid h-full bg-transparent pointer-events-none place-items-center w -7"
+					><ChevronDown class="mr-1" /></span
+				>
 			</fieldset>
 			<Button
 				class="grid place-items-center"
