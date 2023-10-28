@@ -86,7 +86,7 @@
 			</fieldset>
 			<fieldset>
 				<select
-					class="w-full p-4 border bg-primary-foreground text-primary"
+					class="w-full bg-primary-foreground text-primary"
 					name="priority"
 					bind:value={updatedPriority}
 					on:change={(e) => {
