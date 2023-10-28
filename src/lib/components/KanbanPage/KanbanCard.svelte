@@ -117,10 +117,10 @@
 				<Badge
 					class={`pointer-events-none ${
 						todo.tags.tag_name === 'major'
-							? 'bg-red-200 text-red-900'
+							? 'bg-red-900 text-red-200'
 							: todo.tags.tag_name === 'medium'
-							? 'bg-orange-200 text-orange-900'
-							: 'bg-green-200 text-green-900'
+							? 'bg-orange-900 text-orange-200'
+							: 'bg-green-900 text-green-200'
 					}`}>{todo.tags.tag_name}</Badge
 				>
 			{/if}
