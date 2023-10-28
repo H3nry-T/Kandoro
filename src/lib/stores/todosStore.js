@@ -10,6 +10,7 @@ import { supabase } from '../supabase';
  * @property {string} user_id
  * @property {string} description
  * @property {number} row_number
+ * @property {number | null} priority
  */
 
 /**

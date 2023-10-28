@@ -117,6 +117,15 @@
 			{:else}
 				<Badge class="text-green-800 bg-green-300 pointer-events-none">done</Badge>
 			{/if}
+			<Badge
+				class={`pointer-events-none ${
+					todo.priority === 1
+						? 'bg-red-300 text-red-900'
+						: todo.priority === 2
+						? 'bg-orange-300 text-orange-900'
+						: 'bg-green-300 text-green-900'
+				}`}>{todo.priority}</Badge
+			>
 		</div>
 	</Card.Footer>
 </Card.Root>
