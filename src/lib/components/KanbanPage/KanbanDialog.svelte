@@ -86,17 +86,17 @@
 			</fieldset>
 			<fieldset>
 				<select
-					class="w-full bg-primary-foreground text-primary"
+					class="w-full p-4 border bg-primary-foreground text-primary"
 					name="priority"
 					bind:value={updatedPriority}
 					on:change={(e) => {
 						hasBeenEdited = false;
 					}}
 				>
-					<option disabled value={null}>priority:</option>
-					<option value={1}>low</option>
-					<option value={2}>medium</option>
-					<option value={3}>high</option>
+					<option disabled value={null}>Priority:</option>
+					<option value={1}>Low</option>
+					<option value={2}>Medium</option>
+					<option value={3}>High</option>
 				</select>
 			</fieldset>
 			<Button
