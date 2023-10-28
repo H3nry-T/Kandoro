@@ -192,10 +192,11 @@ export async function updateRowNumbersForColumn(syncedColumn) {
  * @param {number} id
  * @param {string} title
  * @param {string} description
+ * @param {number | null} priority
  * @returns {Promise<void>}
  */
 
-export async function updateTodoFieldsById(id, title, description) {
+export async function updateTodoFieldsById(id, title, description, priority) {
 	const promises = [];
 	if (title.length > 0) {
 		const promiseTitleUpdate = supabase.from('todos').update({ title }).match({ id: id }).select();
@@ -210,6 +211,16 @@ export async function updateTodoFieldsById(id, title, description) {
 			.select();
 
 		promises.push(promiseDescriptionUpdate);
+	}
+
+	if (priority !== null) {
+		const promisePriorityUpdate = supabase
+			.from('todos')
+			.update({ priority })
+			.match({ id: id })
+			.select();
+
+		promises.push(promisePriorityUpdate);
 	}
 
 	try {
