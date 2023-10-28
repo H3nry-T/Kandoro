@@ -11,6 +11,7 @@ import { supabase } from '../supabase';
  * @property {string} description
  * @property {number} row_number
  * @property {number | null} priority
+ * @property {{tag_name: string}} tags
  */
 
 /**
@@ -28,7 +29,10 @@ export const todos = writable([]);
  */
 
 export async function loadTodos() {
-	const { data, error } = await supabase.from('todos').select('*').order('id', { ascending: true });
+	const { data, error } = await supabase
+		.from('todos')
+		.select('*, tags (tag_name)')
+		.order('id', { ascending: true });
 	if (error) {
 		console.error(error);
 	}

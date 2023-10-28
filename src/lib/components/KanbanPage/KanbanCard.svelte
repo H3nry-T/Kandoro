@@ -107,25 +107,27 @@
 	<Card.Footer class="flex items-center px-2 py-2">
 		<div class="">
 			{#if todo.column_number === 1}
-				<Badge class="text-blue-800 bg-blue-300 pointer-events-none " variant="outline"
+				<Badge class="text-gray-800 bg-gray-300 pointer-events-none " variant="outline"
 					>ice-box</Badge
 				>
 			{:else if todo.column_number === 2}
-				<Badge class="text-yellow-800 bg-yellow-300 pointer-events-none" variant="secondary"
+				<Badge class="text-gray-800 bg-gray-300 pointer-events-none" variant="secondary"
 					>in-progress</Badge
 				>
 			{:else}
-				<Badge class="text-green-800 bg-green-300 pointer-events-none">done</Badge>
+				<Badge class="text-gray-800 bg-gray-300 pointer-events-none">done</Badge>
 			{/if}
-			<Badge
-				class={`pointer-events-none ${
-					todo.priority === 1
-						? 'bg-red-300 text-red-900'
-						: todo.priority === 2
-						? 'bg-orange-300 text-orange-900'
-						: 'bg-green-300 text-green-900'
-				}`}>{todo.priority}</Badge
-			>
+			{#if todo.tags}
+				<Badge
+					class={`pointer-events-none ${
+						todo.tags.tag_name === 'major'
+							? 'bg-red-200 text-red-900'
+							: todo.tags.tag_name === 'medium'
+							? 'bg-orange-200 text-orange-900'
+							: 'bg-green-200 text-green-900'
+					}`}>{todo.tags.tag_name}</Badge
+				>
+			{/if}
 		</div>
 	</Card.Footer>
 </Card.Root>
