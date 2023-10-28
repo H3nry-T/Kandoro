@@ -105,17 +105,13 @@
 		</header>
 	</section>
 	<Card.Footer class="flex items-center px-2 py-2">
-		<div class="">
+		<div>
 			{#if todo.column_number === 1}
-				<Badge class="text-gray-800 bg-gray-300 pointer-events-none " variant="outline"
-					>ice-box</Badge
-				>
+				<Badge class="" variant="secondary">ice-box</Badge>
 			{:else if todo.column_number === 2}
-				<Badge class="text-gray-800 bg-gray-300 pointer-events-none" variant="secondary"
-					>in-progress</Badge
-				>
+				<Badge class="" variant="secondary">in-progress</Badge>
 			{:else}
-				<Badge class="text-gray-800 bg-gray-300 pointer-events-none">done</Badge>
+				<Badge class="" variant="secondary">done</Badge>
 			{/if}
 			{#if todo.tags}
 				<Badge
