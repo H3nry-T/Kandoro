@@ -35,6 +35,7 @@
 
 	let updatedTitle = todo.title || '';
 	let updatedDescription = todo.description || '';
+	let updatedPriority = todo.priority || null;
 	let hasBeenEdited = false;
 </script>
 
@@ -73,7 +74,13 @@
 					</Tooltip.Root>
 					<Tooltip.Root>
 						<Tooltip.Trigger class="grid place-items-center">
-							<KanbanDialog {updatedDescription} {todo} {updatedTitle} {hasBeenEdited} />
+							<KanbanDialog
+								{updatedDescription}
+								{todo}
+								{updatedTitle}
+								{hasBeenEdited}
+								{updatedPriority}
+							/>
 						</Tooltip.Trigger>
 						<Tooltip.Content>
 							<p class="first-letter:capitalize">edit todo</p>
@@ -116,10 +123,10 @@
 			{#if todo.tags}
 				<Badge
 					class={`pointer-events-none ${
-						todo.tags.tag_name === 'major'
+						todo.tags.tag_name === 'high'
 							? 'bg-red-900 text-red-200'
 							: todo.tags.tag_name === 'medium'
-							? 'bg-orange-900 text-orange-200'
+							? 'bg-yellow-900 text-yellow-200'
 							: 'bg-green-900 text-green-200'
 					}`}>{todo.tags.tag_name}</Badge
 				>
