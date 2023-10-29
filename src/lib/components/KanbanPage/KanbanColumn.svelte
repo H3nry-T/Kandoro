@@ -103,7 +103,7 @@
 				}}
 				on:consider={handleConsider}
 				on:finalize={handleFinalize}
-				class="flex flex-col gap-4 min-h-[100px]"
+				class="flex flex-col gap-4 min-h-[100px] max-h-[80vh] overflow-y-scroll"
 			>
 				{#each column as todo (todo.id)}
 					<div animate:flip={{ duration: flipDurationMs }}>
@@ -131,7 +131,7 @@
 				}}
 				on:consider={handleConsider}
 				on:finalize={handleFinalize}
-				class="flex flex-col gap-4 min-h-[100px] pb-10"
+				class="flex flex-col gap-4 min-h-[100px] pb-10 max-h-[80vh] overflow-y-scroll"
 			>
 				{#each column as todo (todo.id)}
 					<div animate:flip={{ duration: flipDurationMs }}>
