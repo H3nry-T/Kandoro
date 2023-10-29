@@ -214,6 +214,7 @@ export async function updateTodoFieldsById(id, title, description, priority) {
 	}
 
 	if (priority !== null) {
+		if (priority === undefined) priority = null;
 		const promisePriorityUpdate = supabase
 			.from('todos')
 			.update({ priority })

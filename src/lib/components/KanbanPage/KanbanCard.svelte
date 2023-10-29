@@ -127,7 +127,9 @@
 							? 'bg-red-900 text-red-200'
 							: todo.tags.tag_name === 'medium'
 							? 'bg-yellow-900 text-yellow-200'
-							: 'bg-green-900 text-green-200'
+							: todo.tags.tag_name === 'low'
+							? 'bg-green-900 text-green-200'
+							: ''
 					}`}>{todo.tags.tag_name}</Badge
 				>
 			{/if}

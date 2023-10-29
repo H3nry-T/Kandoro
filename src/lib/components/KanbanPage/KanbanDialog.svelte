@@ -104,6 +104,7 @@
 					}}
 				>
 					<option disabled value={null}>Priority:</option>
+					<option value={undefined}>None</option>
 					<option value={1}>Low</option>
 					<option value={2}>Medium</option>
 					<option value={3}>High</option>
