@@ -12,6 +12,7 @@ import { supabase } from '../supabase';
  * @property {number} row_number
  * @property {number | null} priority
  * @property {{tag_name: string}} tags
+ * @property {string | null} media
  */
 
 /**

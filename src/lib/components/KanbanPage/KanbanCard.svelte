@@ -32,11 +32,6 @@
 			animateToggle = false;
 		}, duration);
 	}
-
-	let updatedTitle = todo.title || '';
-	let updatedDescription = todo.description || '';
-	let updatedPriority = todo.priority || null;
-	let hasBeenEdited = false;
 </script>
 
 <Card.Root
@@ -74,13 +69,7 @@
 					</Tooltip.Root>
 					<Tooltip.Root>
 						<Tooltip.Trigger class="grid place-items-center">
-							<KanbanDialog
-								{updatedDescription}
-								{todo}
-								{updatedTitle}
-								{hasBeenEdited}
-								{updatedPriority}
-							/>
+							<KanbanDialog {todo} />
 						</Tooltip.Trigger>
 						<Tooltip.Content>
 							<p class="first-letter:capitalize">edit todo</p>
