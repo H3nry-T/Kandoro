@@ -186,7 +186,6 @@ export async function updateRowNumbersForColumn(syncedColumn) {
 }
 
 /**
- * TODO: make an updateTodoFieldsById function
  * only update if the passed in title and description is relevant change.
  * @function updateTodoFieldsById
  * @param {number} id
