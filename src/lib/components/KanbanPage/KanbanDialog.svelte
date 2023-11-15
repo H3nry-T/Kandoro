@@ -7,6 +7,10 @@
 	import Textarea from '../ui/textarea/textarea.svelte';
 	import * as Select from '$lib/components/ui/select';
 	import { updateTodoFieldsById } from '$lib/stores/todosStore';
+	import { supabase } from '$lib/supabase';
+	import { userStore } from '$lib/stores/authStore';
+
+	import { v4 as uuidv4 } from 'uuid';
 
 	/**
 	 * @type {import('$lib/stores/todosStore').Todo} todo
@@ -78,14 +82,17 @@
 			</fieldset>
 			<section class="">
 				{#if todo.media}
-					<img src={todo.media} alt="media" />
+					<img
+						src={`https://zsgzzosahrvhsgrhlycv.supabase.co/storage/v1/object/public/images/${$userStore?.id}/${todo.id}/${todo.media}`}
+						alt="media"
+					/>
 				{/if}
 			</section>
 			<fieldset
-				class="relative overflow-hidden rounded-md focus-within:ring-offset-2 focus-within:ring-2 focus-within:ring-primary bg-card"
+				class="relative overflow-hidden rounded-md focus-within:ring-offset-2 focus-within:ring-offset-card focus-within:ring-2 focus-within:ring-primary bg-card"
 			>
 				<select
-					class={`w-full px-2 py-1 text-sm border-2 appearance-none bg-card text-card-foreground hover:cursor-pointer hover:bg-muted transition-all duration-300 ease-in-out ${
+					class={`w-full px-2 py-2 text-sm border appearance-none bg-card text-card-foreground hover:cursor-pointer hover:bg-muted transition-all duration-300 ease-in-out ${
 						updatedPriority === 1
 							? 'border-green-900'
 							: updatedPriority === 2
@@ -120,23 +127,42 @@
 					bind:files={inputFileObject}
 					on:change={() => {
 						hasBeenEdited = false;
-						console.log(inputFileObject[0]);
 					}}
 				/>
 				<label
-					class="flex items-center gap-2 px-4 py-2 text-sm leading-none transition-all duration-200 ease-in-out border rounded-md group-focus-within:ring-offset-2 ring-offset-card group-focus-within:ring-2 group-focus-within:ring-primary bg-card peer-hover:bg-muted"
+					class="flex items-center gap-2 px-2 py-2 text-sm leading-none transition-colors duration-200 ease-in-out border rounded-md group-focus-within:ring-offset-2 ring-offset-card group-focus-within:ring-2 group-focus-within:ring-primary bg-card peer-hover:bg-muted"
 					for="media"
 					><File /> Upload a file
 				</label>
-				{#if inputFileObject}
-					<p class="mt-2 text-sm">{inputFileObject[0].name}</p>
-				{/if}
 			</fieldset>
+			{#if inputFileObject}
+				<p class="text-sm">{inputFileObject[0].name}</p>
+			{/if}
 			<Button
 				class="grid place-items-center"
 				type="submit"
-				on:click={() => {
-					updateTodoFieldsById(todo.id, updatedTitle, updatedDescription, updatedPriority);
+				on:click={async () => {
+					let updatedMedia = uuidv4();
+					if (inputFileObject) {
+						const { data, error } = await supabase.storage
+							.from('images')
+							.upload($userStore?.id + '/' + todo.id + '/' + updatedMedia, inputFileObject[0]);
+
+						if (data) {
+							console.log('successful uploading to bucket');
+						}
+
+						if (error) {
+							console.log(error);
+						}
+					}
+					updateTodoFieldsById(
+						todo.id,
+						updatedTitle,
+						updatedDescription,
+						updatedPriority,
+						updatedMedia
+					);
 					hasBeenEdited = true;
 				}}
 			>
