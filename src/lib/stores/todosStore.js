@@ -1,5 +1,7 @@
 import { writable } from 'svelte/store';
 import { supabase } from '../supabase';
+import { userStore } from './authStore';
+
 /**
  * @typedef {Object} Todo
  * @property {number} column_number
@@ -238,4 +240,29 @@ export async function updateTodoFieldsById(id, title, description, priority, med
 	}
 
 	await loadTodos();
+}
+
+/**
+ * @function uploadMedia
+ * @param {FileList} fileObject
+ * @param {string} mediaName
+ * @param {number} id
+ * @param {string | undefined} userId
+ * @returns {Promise<void>}
+ */
+
+export async function uploadMedia(fileObject, mediaName, id, userId) {
+	if (fileObject && userId) {
+		const { data, error } = await supabase.storage
+			.from('images')
+			.upload(userId + '/' + id + '/' + mediaName, fileObject[0]);
+
+		if (data) {
+			console.log('successful uploading to bucket');
+		}
+
+		if (error) {
+			console.log(error);
+		}
+	}
 }

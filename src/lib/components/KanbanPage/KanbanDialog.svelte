@@ -6,7 +6,7 @@
 	import Input from '../ui/input/input.svelte';
 	import Textarea from '../ui/textarea/textarea.svelte';
 	import * as Select from '$lib/components/ui/select';
-	import { updateTodoFieldsById } from '$lib/stores/todosStore';
+	import { updateTodoFieldsById, uploadMedia } from '$lib/stores/todosStore';
 	import { supabase } from '$lib/supabase';
 	import { userStore } from '$lib/stores/authStore';
 
