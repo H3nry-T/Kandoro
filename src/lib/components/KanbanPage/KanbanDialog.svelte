@@ -6,7 +6,7 @@
 	import Input from '../ui/input/input.svelte';
 	import Textarea from '../ui/textarea/textarea.svelte';
 	import * as Select from '$lib/components/ui/select';
-	import { updateTodoFieldsById } from '$lib/stores/todosStore';
+	import { updateTodoFieldsById, uploadMedia } from '$lib/stores/todosStore';
 	import { supabase } from '$lib/supabase';
 	import { userStore } from '$lib/stores/authStore';
 
@@ -143,19 +143,7 @@
 				type="submit"
 				on:click={async () => {
 					let updatedMedia = uuidv4();
-					if (inputFileObject) {
-						const { data, error } = await supabase.storage
-							.from('images')
-							.upload($userStore?.id + '/' + todo.id + '/' + updatedMedia, inputFileObject[0]);
-
-						if (data) {
-							console.log('successful uploading to bucket');
-						}
-
-						if (error) {
-							console.log(error);
-						}
-					}
+					uploadMedia(inputFileObject, updatedMedia, todo.id, $userStore?.id);
 					updateTodoFieldsById(
 						todo.id,
 						updatedTitle,
