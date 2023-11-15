@@ -80,7 +80,7 @@
 					}}
 				/>
 			</fieldset>
-			<section class="">
+			<section class="flex justify-center">
 				{#if todo.media}
 					<img
 						src={`https://zsgzzosahrvhsgrhlycv.supabase.co/storage/v1/object/public/images/${$userStore?.id}/${todo.id}/${todo.media}`}
@@ -143,10 +143,19 @@
 				type="submit"
 				on:click={async () => {
 					let updatedMedia = uuidv4();
-					if (inputFileObject) {
+					const { data } = await supabase.storage
+						.from('images')
+						.list($userStore?.id + '/' + todo.id);
+					if (data !== null && data?.length !== 0) {
+						console.log(data);
+						await supabase.storage
+							.from('images')
+							.remove([$userStore?.id + '/' + todo.id + '/' + data[0].name]);
+					}
+					if (inputFileObject && $userStore) {
 						const { data, error } = await supabase.storage
 							.from('images')
-							.upload($userStore?.id + '/' + todo.id + '/' + updatedMedia, inputFileObject[0]);
+							.upload($userStore.id + '/' + todo.id + '/' + updatedMedia, inputFileObject[0]);
 
 						if (data) {
 							console.log('successful uploading to bucket');
