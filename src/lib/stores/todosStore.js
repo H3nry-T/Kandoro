@@ -251,7 +251,7 @@ export async function updateTodoFieldsById(id, title, description, priority, med
  * @returns {Promise<void>}
  */
 
-async function insertOrUpdateBucket(todo, updatedMedia, inputFileObject, userId) {
+export async function insertOrUpdateBucket(todo, updatedMedia, inputFileObject, userId) {
 	const { data } = await supabase.storage.from('images').list(userId + '/' + todo.id);
 	if (data && data.length > 0) {
 		await supabase.storage.from('images').remove([userId + '/' + todo.id + '/' + data[0].name]);
