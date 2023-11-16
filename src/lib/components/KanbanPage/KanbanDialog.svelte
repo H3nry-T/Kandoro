@@ -152,22 +152,22 @@
 				on:click={async () => {
 					hasBeenEdited = true;
 					loading = true;
-					updatedMedia = uuidv4();
-					const { data } = await supabase.storage
-						.from('images')
-						.list($userStore?.id + '/' + todo.id);
-					if (data && data.length > 0) {
-						console.log(data);
-						await supabase.storage
-							.from('images')
-							.remove([$userStore?.id + '/' + todo.id + '/' + data[0].name]);
-					}
 					if (inputFileObject && inputFileObject.length > 0 && $userStore) {
-						const { data, error } = await supabase.storage
+						updatedMedia = uuidv4();
+						const { data } = await supabase.storage
+							.from('images')
+							.list($userStore?.id + '/' + todo.id);
+						if (data && data.length > 0) {
+							console.log(data);
+							await supabase.storage
+								.from('images')
+								.remove([$userStore?.id + '/' + todo.id + '/' + data[0].name]);
+						}
+						const { data: uploadedData, error } = await supabase.storage
 							.from('images')
 							.upload($userStore.id + '/' + todo.id + '/' + updatedMedia, inputFileObject[0]);
 
-						if (data) {
+						if (uploadedData) {
 							console.log('successful uploading to bucket');
 						}
 
