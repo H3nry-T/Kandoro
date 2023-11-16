@@ -1,6 +1,6 @@
 <script>
 	import * as Dialog from '$lib/components/ui/dialog';
-	import { CheckCircle, ChevronDown, Cross, File, FileEdit, X } from 'lucide-svelte';
+	import { Calculator, CheckCircle, ChevronDown, Cross, File, FileEdit, X } from 'lucide-svelte';
 	import Button from '../ui/button/button.svelte';
 	import Label from '../ui/label/label.svelte';
 	import Input from '../ui/input/input.svelte';
@@ -17,12 +17,24 @@
 	 *
 	 */
 	export let todo;
+	/**
+	 * !variable with value means database call
+	 * ?variable with null means no database call
+	 * *variable with undefined means database call to set null
+	 */
 
 	let updatedTitle = todo.title || '';
 	let updatedDescription = todo.description || '';
+	/**
+	 * @type {number | null | undefined} updatedPriority
+	 */
 	let updatedPriority = todo.priority || null;
 	let hasBeenEdited = false;
-	let updatedMedia = todo.media || null || undefined;
+
+	/**
+	 * @type {string | null | undefined} updatedMedia
+	 */
+	let updatedMedia = todo.media || null;
 
 	/**
 	 * @type {FileList | null} inputFileObject
