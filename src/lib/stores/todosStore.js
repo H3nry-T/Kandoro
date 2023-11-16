@@ -194,8 +194,8 @@ export async function updateRowNumbersForColumn(syncedColumn) {
  * @param {number} id
  * @param {string} title
  * @param {string} description
- * @param {number | null} priority
- * @param {string | null} media
+ * @param {number | null | undefined} priority
+ * @param {string | null | undefined} media
  * @returns {Promise<void>}
  */
 
@@ -228,8 +228,8 @@ export async function updateTodoFieldsById(id, title, description, priority, med
 	}
 
 	if (media !== null) {
+		if (media === undefined) media = null;
 		const promiseMediaUpdate = supabase.from('todos').update({ media }).match({ id: id }).select();
-
 		promises.push(promiseMediaUpdate);
 	}
 

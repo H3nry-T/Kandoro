@@ -6,7 +6,7 @@
 	import Input from '../ui/input/input.svelte';
 	import Textarea from '../ui/textarea/textarea.svelte';
 	import * as Select from '$lib/components/ui/select';
-	import { updateTodoFieldsById, insertOrUpdateBucket } from '$lib/stores/todosStore';
+	import { updateTodoFieldsById, insertOrUpdateBucket, loadTodos } from '$lib/stores/todosStore';
 	import { supabase } from '$lib/supabase';
 	import { userStore } from '$lib/stores/authStore';
 
@@ -22,7 +22,7 @@
 	let updatedDescription = todo.description || '';
 	let updatedPriority = todo.priority || null;
 	let hasBeenEdited = false;
-	let updatedMedia = todo.media || null;
+	let updatedMedia = todo.media || null || undefined;
 
 	/**
 	 * @type {FileList | null} inputFileObject
@@ -30,6 +30,7 @@
 	let inputFileObject = null;
 
 	let loading = false;
+	let wantToRemoveMedia = false;
 </script>
 
 <Dialog.Root
@@ -38,6 +39,8 @@
 			hasBeenEdited = false;
 			updatedTitle = todo.title;
 			updatedDescription = todo.description;
+		} else {
+			wantToRemoveMedia = false;
 		}
 	}}
 >
@@ -83,11 +86,14 @@
 				/>
 			</fieldset>
 			<section class="relative flex justify-center group">
-				{#if todo.media}
+				{#if todo.media && !wantToRemoveMedia}
 					<Button
-						variant="destructive"
+						variant="ghost"
 						size="icon"
-						class="absolute bg-transparent place-items-center p-0 border h-[25px] w-[25px]   top-1 right-1 hidden group-hover:grid hover:bg-transparent"
+						class="absolute hidden w-6 h-6 p-0 border border-muted bg-gray-400/30 place-items-center top-1 right-1 group-hover:grid"
+						on:click={async () => {
+							wantToRemoveMedia = true;
+						}}
 						><X class="transition-all duration-300 ease-in-out" size={20} />
 					</Button>
 					<img
@@ -174,6 +180,16 @@
 							console.log(error);
 						}
 					}
+					if (wantToRemoveMedia) {
+						try {
+							updatedMedia = undefined;
+							await supabase.storage
+								.from('images')
+								.remove([$userStore?.id + '/' + todo.id + '/' + todo.media]);
+						} catch (error) {
+							console.log(error);
+						}
+					}
 					await updateTodoFieldsById(
 						todo.id,
 						updatedTitle,
@@ -181,8 +197,9 @@
 						updatedPriority,
 						updatedMedia
 					);
-					hasBeenEdited = true;
 					loading = false;
+					wantToRemoveMedia = false;
+					inputFileObject = null;
 				}}
 			>
 				{#if !hasBeenEdited}
