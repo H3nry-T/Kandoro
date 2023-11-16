@@ -1,5 +1,7 @@
 import { writable } from 'svelte/store';
 import { supabase } from '../supabase';
+import { userStore } from '$lib/stores/authStore';
+
 /**
  * @typedef {Object} Todo
  * @property {number} column_number
@@ -12,6 +14,7 @@ import { supabase } from '../supabase';
  * @property {number} row_number
  * @property {number | null} priority
  * @property {{tag_name: string}} tags
+ * @property {string | null} media
  */
 
 /**
@@ -186,17 +189,17 @@ export async function updateRowNumbersForColumn(syncedColumn) {
 }
 
 /**
- * TODO: make an updateTodoFieldsById function
  * only update if the passed in title and description is relevant change.
  * @function updateTodoFieldsById
  * @param {number} id
  * @param {string} title
  * @param {string} description
- * @param {number | null} priority
+ * @param {number | null | undefined} priority
+ * @param {string | null | undefined} media
  * @returns {Promise<void>}
  */
 
-export async function updateTodoFieldsById(id, title, description, priority) {
+export async function updateTodoFieldsById(id, title, description, priority, media) {
 	const promises = [];
 	if (title.length > 0) {
 		const promiseTitleUpdate = supabase.from('todos').update({ title }).match({ id: id }).select();
@@ -224,6 +227,12 @@ export async function updateTodoFieldsById(id, title, description, priority) {
 		promises.push(promisePriorityUpdate);
 	}
 
+	if (media !== null) {
+		if (media === undefined) media = null;
+		const promiseMediaUpdate = supabase.from('todos').update({ media }).match({ id: id }).select();
+		promises.push(promiseMediaUpdate);
+	}
+
 	try {
 		await Promise.all(promises);
 	} catch (error) {
@@ -231,4 +240,31 @@ export async function updateTodoFieldsById(id, title, description, priority) {
 	}
 
 	await loadTodos();
+}
+
+/**
+ * @function uploadMedia
+ * @param {Todo} todo
+ * @param {Todo["media"]} updatedMedia
+ * @param {FileList} inputFileObject
+ * @param {string} userId
+ * @returns {Promise<void>}
+ */
+
+export async function insertOrUpdateBucket(todo, updatedMedia, inputFileObject, userId) {
+	const { data } = await supabase.storage.from('images').list(userId + '/' + todo.id);
+	if (data && data.length > 0) {
+		await supabase.storage.from('images').remove([userId + '/' + todo.id + '/' + data[0].name]);
+	}
+	const { data: uploadedData, error } = await supabase.storage
+		.from('images')
+		.upload(userId + '/' + todo.id + '/' + updatedMedia, inputFileObject[0]);
+
+	if (uploadedData) {
+		console.log('successful uploading to bucket');
+	}
+
+	if (error) {
+		console.log(error);
+	}
 }
