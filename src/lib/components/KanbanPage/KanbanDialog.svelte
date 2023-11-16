@@ -158,7 +158,6 @@
 							.from('images')
 							.list($userStore?.id + '/' + todo.id);
 						if (data && data.length > 0) {
-							console.log(data);
 							await supabase.storage
 								.from('images')
 								.remove([$userStore?.id + '/' + todo.id + '/' + data[0].name]);
