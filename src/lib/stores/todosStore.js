@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 import { supabase } from '../supabase';
-import { userStore } from './authStore';
+import { userStore } from '$lib/stores/authStore';
 
 /**
  * @typedef {Object} Todo
@@ -244,25 +244,27 @@ export async function updateTodoFieldsById(id, title, description, priority, med
 
 /**
  * @function uploadMedia
- * @param {FileList} fileObject
- * @param {string} mediaName
- * @param {number} id
- * @param {string | undefined} userId
+ * @param {Todo} todo
+ * @param {Todo["media"]} updatedMedia
+ * @param {FileList} inputFileObject
+ * @param {string} userId
  * @returns {Promise<void>}
  */
 
-export async function uploadMedia(fileObject, mediaName, id, userId) {
-	if (fileObject && userId) {
-		const { data, error } = await supabase.storage
-			.from('images')
-			.upload(userId + '/' + id + '/' + mediaName, fileObject[0]);
+async function insertOrUpdateBucket(todo, updatedMedia, inputFileObject, userId) {
+	const { data } = await supabase.storage.from('images').list(userId + '/' + todo.id);
+	if (data && data.length > 0) {
+		await supabase.storage.from('images').remove([userId + '/' + todo.id + '/' + data[0].name]);
+	}
+	const { data: uploadedData, error } = await supabase.storage
+		.from('images')
+		.upload(userId + '/' + todo.id + '/' + updatedMedia, inputFileObject[0]);
 
-		if (data) {
-			console.log('successful uploading to bucket');
-		}
+	if (uploadedData) {
+		console.log('successful uploading to bucket');
+	}
 
-		if (error) {
-			console.log(error);
-		}
+	if (error) {
+		console.log(error);
 	}
 }
