@@ -1,6 +1,6 @@
 <script>
 	import * as Dialog from '$lib/components/ui/dialog';
-	import { CheckCircle, ChevronDown, File, FileEdit } from 'lucide-svelte';
+	import { CheckCircle, ChevronDown, Cross, File, FileEdit, X } from 'lucide-svelte';
 	import Button from '../ui/button/button.svelte';
 	import Label from '../ui/label/label.svelte';
 	import Input from '../ui/input/input.svelte';
@@ -25,9 +25,11 @@
 	let updatedMedia = todo.media || null;
 
 	/**
-	 * @type {FileList} inputFileObject
+	 * @type {FileList | null} inputFileObject
 	 */
-	let inputFileObject;
+	let inputFileObject = null;
+
+	let loading = false;
 </script>
 
 <Dialog.Root
@@ -80,8 +82,14 @@
 					}}
 				/>
 			</fieldset>
-			<section class="flex justify-center">
+			<section class="relative flex justify-center group">
 				{#if todo.media}
+					<Button
+						variant="destructive"
+						size="icon"
+						class="absolute bg-transparent place-items-center p-0 border h-[25px] w-[25px]   top-1 right-1 hidden group-hover:grid hover:bg-transparent"
+						><X class="transition-all duration-300 ease-in-out" size={20} />
+					</Button>
 					<img
 						src={`https://zsgzzosahrvhsgrhlycv.supabase.co/storage/v1/object/public/images/${$userStore?.id}/${todo.id}/${todo.media}`}
 						alt="media"
@@ -135,24 +143,26 @@
 					><File /> Upload a file
 				</label>
 			</fieldset>
-			{#if inputFileObject}
+			{#if inputFileObject && inputFileObject.length > 0}
 				<p class="text-sm">{inputFileObject[0].name}</p>
 			{/if}
 			<Button
 				class="grid place-items-center"
 				type="submit"
 				on:click={async () => {
-					let updatedMedia = uuidv4();
+					hasBeenEdited = true;
+					loading = true;
+					updatedMedia = uuidv4();
 					const { data } = await supabase.storage
 						.from('images')
 						.list($userStore?.id + '/' + todo.id);
-					if (data !== null && data?.length !== 0) {
+					if (data && data.length > 0) {
 						console.log(data);
 						await supabase.storage
 							.from('images')
 							.remove([$userStore?.id + '/' + todo.id + '/' + data[0].name]);
 					}
-					if (inputFileObject && $userStore) {
+					if (inputFileObject && inputFileObject.length > 0 && $userStore) {
 						const { data, error } = await supabase.storage
 							.from('images')
 							.upload($userStore.id + '/' + todo.id + '/' + updatedMedia, inputFileObject[0]);
@@ -165,7 +175,7 @@
 							console.log(error);
 						}
 					}
-					updateTodoFieldsById(
+					await updateTodoFieldsById(
 						todo.id,
 						updatedTitle,
 						updatedDescription,
@@ -173,10 +183,13 @@
 						updatedMedia
 					);
 					hasBeenEdited = true;
+					loading = false;
 				}}
 			>
 				{#if !hasBeenEdited}
 					<p class="first-letter:capitalize">save changes</p>
+				{:else if loading}
+					<div class="w-6 h-6 border border-t-2 rounded-full animate-spin" />
 				{:else}
 					<CheckCircle />
 				{/if}
