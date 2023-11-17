@@ -1,6 +1,7 @@
 <script>
 	import * as Dialog from '$lib/components/ui/dialog';
 	import { Textarea } from '$lib/components/ui/textarea/index';
+	import * as AlertDialog from '$lib/components/ui/alert-dialog';
 
 	import { Badge } from '$lib/components/ui/badge/index';
 	import { Button } from '$lib/components/ui/button/index';
@@ -78,24 +79,37 @@
 						</Tooltip.Content>
 					</Tooltip.Root>
 					<Tooltip.Root>
-						<Tooltip.Trigger class="grid place-items-center"
-							><Button
-								variant="destructive"
-								size="icon"
-								class="p-0 border group h-[25px] w-[25px] bg-card hover:bg-red-100"
-								on:click={async () => {
-									const { data, error } = await supabase.storage
-										.from('images')
-										.remove([$userStore?.id + '/' + todo.id + '/' + todo.media]);
-									if (error) console.log(error);
-
-									await deleteTodos(todo.id);
-								}}
-								><X
-									class="transition-all duration-300 ease-in-out text-primary group-hover:text-red-900"
-								/>
-							</Button></Tooltip.Trigger
-						>
+						<Tooltip.Trigger class="grid place-items-center">
+							<AlertDialog.Root>
+								<AlertDialog.Trigger class="grid p-0 border rounded-md place-items-center bg-card">
+									<X
+										class="transition-all duration-300 ease-in-out text-primary group-hover:text-red-900 "
+										size={22}
+									/>
+								</AlertDialog.Trigger>
+								<AlertDialog.Content>
+									<AlertDialog.Header>
+										<AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
+										<AlertDialog.Description>
+											This action cannot be undone. This will permanently delete your account and
+											remove your data from our servers.
+										</AlertDialog.Description>
+									</AlertDialog.Header>
+									<AlertDialog.Footer>
+										<AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+										<AlertDialog.Action
+											on:click={async () => {
+												const { data, error } = await supabase.storage
+													.from('images')
+													.remove([$userStore?.id + '/' + todo.id + '/' + todo.media]);
+												if (error) console.log(error);
+												await deleteTodos(todo.id);
+											}}>delete</AlertDialog.Action
+										>
+									</AlertDialog.Footer>
+								</AlertDialog.Content>
+							</AlertDialog.Root>
+						</Tooltip.Trigger>
 						<Tooltip.Content>
 							<p>Delete todo</p>
 						</Tooltip.Content>
