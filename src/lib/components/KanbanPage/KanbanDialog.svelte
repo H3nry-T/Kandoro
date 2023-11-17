@@ -87,13 +87,11 @@
 		></Dialog.Trigger
 	>
 	<Dialog.Content class="flex flex-col gap-8 overflow-y-scroll max-h-[70vh]">
-		<Dialog.Header>
-			<Dialog.Title>Edit the todo here:</Dialog.Title>
-		</Dialog.Header>
 		<form class="flex flex-col w-full gap-5" on:submit|preventDefault>
 			<fieldset class="flex flex-col gap-3">
-				<Label for="title" class="first-letter:capitalize">title</Label>
+				<Label for="title" class="text-lg first-letter:capitalize">title:</Label>
 				<Input
+					class="text-base"
 					placeholder={todo.title}
 					id="title"
 					bind:value={updatedTitle}
@@ -103,8 +101,9 @@
 				/>
 			</fieldset>
 			<fieldset class="flex flex-col gap-3">
-				<Label for="title" class="first-letter:capitalize">add a description</Label>
+				<Label for="title" class="text-lg first-letter:capitalize">description:</Label>
 				<Textarea
+					class="text-base"
 					name="description"
 					id="description"
 					cols={30}
@@ -137,7 +136,7 @@
 				class="relative rounded-md focus-within:ring-offset-2 focus-within:ring-offset-card focus-within:ring-2 focus-within:ring-primary bg-card"
 			>
 				<select
-					class={`w-full px-2 py-2 text-base outline-none border appearance-none bg-card text-card-foreground hover:cursor-pointer hover:bg-muted transition-all duration-300 ease-in-out ${
+					class={`w-full px-2 py-2  outline-none border rounded-md appearance-none bg-card text-card-foreground hover:cursor-pointer hover:bg-muted transition-all duration-300 ease-in-out ${
 						updatedPriority === 1
 							? 'border-green-900'
 							: updatedPriority === 2
@@ -175,13 +174,13 @@
 					}}
 				/>
 				<label
-					class="flex items-center gap-2 px-2 py-2 text-base leading-none transition-colors duration-200 ease-in-out border rounded-md group-focus-within:ring-offset-2 ring-offset-card group-focus-within:ring-2 group-focus-within:ring-primary bg-card peer-hover:bg-muted"
+					class="flex items-center gap-2 px-2 py-2 leading-none transition-colors duration-200 ease-in-out border rounded-md group-focus-within:ring-offset-2 ring-offset-card group-focus-within:ring-2 group-focus-within:ring-primary bg-card peer-hover:bg-muted"
 					for="media"
 					><File /> Upload a file
 				</label>
 			</fieldset>
 			{#if inputFileObject && inputFileObject.length > 0}
-				<p class="text-base">{inputFileObject[0].name}</p>
+				<p>{inputFileObject[0].name}</p>
 			{/if}
 			<Button
 				class="grid place-items-center"

@@ -91,7 +91,7 @@
 									<AlertDialog.Header>
 										<AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
 										<AlertDialog.Description>
-											This action cannot be undone. This will permanently delete your account and
+											This action cannot be undone. This will permanently delete your todo and
 											remove your data from our servers.
 										</AlertDialog.Description>
 									</AlertDialog.Header>
