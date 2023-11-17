@@ -86,9 +86,9 @@
 		</button>
 	</form>
 
-	<div class="py-10">
+	<section class="py-10 w-[70vw] mx-auto">
 		<SeperatorWithText text="or continue with" />
-	</div>
+	</section>
 
 	<button
 		type="button"
