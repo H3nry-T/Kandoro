@@ -69,6 +69,7 @@
 			hasBeenEdited = false;
 			updatedTitle = todo.title;
 			updatedDescription = todo.description;
+			inputFileObject = null;
 		} else {
 			wantToRemoveMedia = false;
 		}
