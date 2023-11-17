@@ -14,7 +14,7 @@
 		finalizingCard
 	} from '$lib/stores/cardAnimationStore';
 	import { deleteTodos, updateTodoFieldsById, updateToggleTodos } from '$lib/stores/todosStore';
-	import { CheckCircle, FileEdit, X } from 'lucide-svelte';
+	import { CheckCircle, File, FileEdit, X } from 'lucide-svelte';
 	import Input from '../ui/input/input.svelte';
 	import KanbanDialog from './KanbanDialog.svelte';
 	import { userStore } from '$lib/stores/authStore';
@@ -109,28 +109,29 @@
 			{/if}
 		</header>
 	</section>
-	<Card.Footer class="flex items-center px-2 py-2">
-		<div>
-			{#if todo.column_number === 1}
-				<Badge class="" variant="secondary">ice-box</Badge>
-			{:else if todo.column_number === 2}
-				<Badge class="" variant="secondary">in-progress</Badge>
-			{:else}
-				<Badge class="" variant="secondary">done</Badge>
-			{/if}
-			{#if todo.tags}
-				<Badge
-					class={`pointer-events-none ${
-						todo.tags.tag_name === 'high'
-							? 'bg-red-900 text-red-200'
-							: todo.tags.tag_name === 'medium'
-							? 'bg-yellow-900 text-yellow-200'
-							: todo.tags.tag_name === 'low'
-							? 'bg-green-900 text-green-200'
-							: ''
-					}`}>{todo.tags.tag_name}</Badge
-				>
-			{/if}
-		</div>
+	<Card.Footer class="flex items-center w-full gap-1 px-2 py-2">
+		{#if todo.column_number === 1}
+			<Badge class="" variant="secondary">ice-box</Badge>
+		{:else if todo.column_number === 2}
+			<Badge class="" variant="secondary">in-progress</Badge>
+		{:else}
+			<Badge class="" variant="secondary">done</Badge>
+		{/if}
+		{#if todo.tags}
+			<Badge
+				class={`pointer-events-none ${
+					todo.tags.tag_name === 'high'
+						? 'bg-red-900 text-red-200'
+						: todo.tags.tag_name === 'medium'
+						? 'bg-yellow-900 text-yellow-200'
+						: todo.tags.tag_name === 'low'
+						? 'bg-green-900 text-green-200'
+						: ''
+				}`}>{todo.tags.tag_name}</Badge
+			>
+		{/if}
+		{#if todo.media}
+			<Badge class="ml-auto" variant="default"><File size={16} /></Badge>
+		{/if}
 	</Card.Footer>
 </Card.Root>
