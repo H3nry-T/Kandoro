@@ -67,7 +67,7 @@
 			>
 				<fieldset class="flex items-center w-full gap-4">
 					<Input
-						class="w-full max-w-2xl py-0 bg-card"
+						class="w-full max-w-2xl py-0 text-base bg-card"
 						bind:value={form.title}
 						type="text"
 						name="title"
