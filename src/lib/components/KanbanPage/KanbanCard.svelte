@@ -17,6 +17,8 @@
 	import { CheckCircle, FileEdit, X } from 'lucide-svelte';
 	import Input from '../ui/input/input.svelte';
 	import KanbanDialog from './KanbanDialog.svelte';
+	import { userStore } from '$lib/stores/authStore';
+	import { supabase } from '$lib/supabase';
 
 	/**
 	 * @type {import('$lib/stores/todosStore').Todo} todo
@@ -81,7 +83,14 @@
 								variant="destructive"
 								size="icon"
 								class="p-0 border group h-[25px] w-[25px] bg-card hover:bg-red-100"
-								on:click={() => deleteTodos(todo.id)}
+								on:click={async () => {
+									const { data, error } = await supabase.storage
+										.from('images')
+										.remove([$userStore?.id + '/' + todo.id + '/' + todo.media]);
+									if (error) console.log(error);
+
+									await deleteTodos(todo.id);
+								}}
 								><X
 									class="transition-all duration-300 ease-in-out text-primary group-hover:text-red-900"
 								/>
