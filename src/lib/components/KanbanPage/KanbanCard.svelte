@@ -81,7 +81,9 @@
 					<Tooltip.Root>
 						<Tooltip.Trigger class="grid place-items-center">
 							<AlertDialog.Root>
-								<AlertDialog.Trigger class="grid p-0 border rounded-md place-items-center bg-card">
+								<AlertDialog.Trigger
+									class="grid p-0 transition-all duration-300 ease-in-out border rounded-md hover:brightness-75 place-items-center bg-card"
+								>
 									<X
 										class="transition-all duration-300 ease-in-out text-primary group-hover:text-red-900 "
 										size={22}

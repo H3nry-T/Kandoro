@@ -75,16 +75,9 @@
 		}
 	}}
 >
-	<Dialog.Trigger class="grid place-items-center"
-		><Button
-			class="p-0 h-[25px] w-[25px] leading-none border bg-card group hover:bg-gray-400/10"
-			size="icon"
-			variant="secondary"
-			><FileEdit
-				size={20}
-				class="transition-all duration-300 ease-in-out group-hover:text-gray-400"
-			/></Button
-		></Dialog.Trigger
+	<Dialog.Trigger
+		class="grid rounded-md place-items-center p-0 h-[25px] w-[25px] leading-none border bg-card group hover:brightness-75 transition-all duration-300 ease-in-out"
+		><FileEdit size={20} class="" /></Dialog.Trigger
 	>
 	<Dialog.Content class="flex flex-col gap-8 overflow-y-scroll max-h-[70vh]">
 		<form class="flex flex-col w-full gap-5" on:submit|preventDefault>
