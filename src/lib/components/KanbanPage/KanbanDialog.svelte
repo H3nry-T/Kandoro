@@ -11,6 +11,7 @@
 	import { userStore } from '$lib/stores/authStore';
 
 	import { v4 as uuidv4 } from 'uuid';
+	import { onMount } from 'svelte';
 
 	/**
 	 * @type {import('$lib/stores/todosStore').Todo} todo
@@ -43,6 +44,23 @@
 
 	let loading = false;
 	let wantToRemoveMedia = false;
+
+	onMount(() => {
+		/**
+		 * @function handlePaste
+		 * @param {ClipboardEvent} e
+		 * @returns {void}
+		 */
+		function handlePaste(e) {
+			if (e.clipboardData && e.clipboardData.files.length > 0) {
+				inputFileObject = e.clipboardData.files;
+			}
+		}
+		window.addEventListener('paste', handlePaste);
+		return () => {
+			window.removeEventListener('paste', handlePaste);
+		};
+	});
 </script>
 
 <Dialog.Root
