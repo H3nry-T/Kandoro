@@ -133,10 +133,10 @@
 				{/if}
 			</section>
 			<fieldset
-				class="relative overflow-hidden rounded-md focus-within:ring-offset-2 focus-within:ring-offset-card focus-within:ring-2 focus-within:ring-primary bg-card"
+				class="relative rounded-md focus-within:ring-offset-2 focus-within:ring-offset-card focus-within:ring-2 focus-within:ring-primary bg-card"
 			>
 				<select
-					class={`w-full px-2 py-2 text-base border appearance-none bg-card text-card-foreground hover:cursor-pointer hover:bg-muted transition-all duration-300 ease-in-out ${
+					class={`w-full px-2 py-2 text-base outline-none border appearance-none bg-card text-card-foreground hover:cursor-pointer hover:bg-muted transition-all duration-300 ease-in-out ${
 						updatedPriority === 1
 							? 'border-green-900'
 							: updatedPriority === 2
