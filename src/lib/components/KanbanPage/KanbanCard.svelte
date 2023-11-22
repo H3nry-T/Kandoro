@@ -106,7 +106,7 @@
 													.remove([$userStore?.id + '/' + todo.id + '/' + todo.media]);
 												if (error) console.log(error);
 												await deleteTodos(todo.id);
-											}}>delete</AlertDialog.Action
+											}}>Delete</AlertDialog.Action
 										>
 									</AlertDialog.Footer>
 								</AlertDialog.Content>
