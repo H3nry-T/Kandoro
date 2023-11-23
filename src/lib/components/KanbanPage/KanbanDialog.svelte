@@ -1,17 +1,16 @@
 <script>
 	import * as Dialog from '$lib/components/ui/dialog';
-	import { Calculator, CheckCircle, ChevronDown, Cross, File, FileEdit, X } from 'lucide-svelte';
-	import Button from '../ui/button/button.svelte';
-	import Label from '../ui/label/label.svelte';
-	import Input from '../ui/input/input.svelte';
-	import Textarea from '../ui/textarea/textarea.svelte';
-	import * as Select from '$lib/components/ui/select';
-	import { updateTodoFieldsById, insertOrUpdateBucket, loadTodos } from '$lib/stores/todosStore';
-	import { supabase } from '$lib/supabase';
 	import { userStore } from '$lib/stores/authStore';
+	import { updateTodoFieldsById } from '$lib/stores/todosStore';
+	import { supabase } from '$lib/supabase';
+	import { CheckCircle, ChevronDown, File, FileEdit, X } from 'lucide-svelte';
+	import Button from '../ui/button/button.svelte';
+	import Input from '../ui/input/input.svelte';
+	import Label from '../ui/label/label.svelte';
+	import Textarea from '../ui/textarea/textarea.svelte';
 
-	import { v4 as uuidv4 } from 'uuid';
 	import { onMount } from 'svelte';
+	import { v4 as uuidv4 } from 'uuid';
 
 	/**
 	 * @type {import('$lib/stores/todosStore').Todo} todo
@@ -111,6 +110,7 @@
 			<section class="relative flex justify-center group">
 				{#if todo.media && !wantToRemoveMedia}
 					<Button
+						type="button"
 						variant="ghost"
 						size="icon"
 						class="absolute hidden w-6 h-6 p-0 border border-muted bg-gray-400/30 place-items-center top-1 right-1 group-hover:grid"
